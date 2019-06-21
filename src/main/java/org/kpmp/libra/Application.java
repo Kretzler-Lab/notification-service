@@ -1,4 +1,4 @@
-package org.kpmp;
+package org.kpmp.libra;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cache.annotation.EnableCaching;
