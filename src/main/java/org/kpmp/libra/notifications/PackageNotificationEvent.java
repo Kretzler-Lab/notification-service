@@ -12,14 +12,16 @@ public class PackageNotificationEvent {
 	private String id;
 	private String packageId;
 	private String packageType;
-	private Date dateSubmitted;
+	private Date datePackageSubmitted;
 	private String submitter;
+	private Date dateEventSubmitted;
 
-	public PackageNotificationEvent(String packageId, String packageType, Date dateSubmitted, String submitter) {
+	public PackageNotificationEvent(String packageId, String packageType, Date datePackageSubmitted, String submitter) {
 		this.packageId = packageId;
 		this.packageType = packageType;
-		this.dateSubmitted = dateSubmitted;
+		this.datePackageSubmitted = datePackageSubmitted;
 		this.submitter = submitter;
+		this.dateEventSubmitted = new Date();
 	}
 
 	public PackageNotificationEvent() {
@@ -41,12 +43,12 @@ public class PackageNotificationEvent {
 		this.packageType = packageType;
 	}
 
-	public Date getDateSubmitted() {
-		return dateSubmitted;
+	public Date getDatePackageSubmitted() {
+		return datePackageSubmitted;
 	}
 
-	public void setDateSubmitted(Date dateSubmitted) {
-		this.dateSubmitted = dateSubmitted;
+	public void setDatePackageSubmitted(Date dateSubmitted) {
+		this.datePackageSubmitted = dateSubmitted;
 	}
 
 	public String getSubmitter() {
@@ -63,5 +65,13 @@ public class PackageNotificationEvent {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Date getDateEventSubmitted() {
+		return dateEventSubmitted;
+	}
+
+	public void setDateEventSubmitted(Date dateEventSubmitted) {
+		this.dateEventSubmitted = dateEventSubmitted;
 	}
 }
