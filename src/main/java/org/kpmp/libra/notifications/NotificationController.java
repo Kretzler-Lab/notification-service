@@ -14,10 +14,10 @@ public class NotificationController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value = "/v1/notifications", method = RequestMethod.POST)
-	public @ResponseBody Boolean notify(String packageId, String packageType, Date dateSubmitted,
+	@RequestMapping(value = "/v1/package/notifications", method = RequestMethod.POST)
+	public @ResponseBody Boolean notifyNewPackage(String packageId, String packageType, Date dateSubmitted,
 			String submitterName) {
-		log.info("URI: {} | MSG: {}", "/v1/notifications", "Adding notification for packageId: " + packageId);
+		log.info("URI: {} | MSG: {}", "/v1/package/notifications", "Adding notification for PKGID: " + packageId);
 		return false;
 	}
 

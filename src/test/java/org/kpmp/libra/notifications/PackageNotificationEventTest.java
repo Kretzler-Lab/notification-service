@@ -49,6 +49,12 @@ public class PackageNotificationEventTest {
 	}
 
 	@Test
+	public void testSetId() throws Exception {
+		event.setId("id");
+		assertEquals("id", event.getId());
+	}
+
+	@Test
 	public void testConstructor() throws Exception {
 		Date dateSubmitted = new Date();
 		event = new PackageNotificationEvent("packageId", "packageType", dateSubmitted, "submitter");

@@ -2,11 +2,14 @@ package org.kpmp.libra.notifications;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "pacakageNotificationEvents")
 public class PackageNotificationEvent {
 
+	@Id
+	private String id;
 	private String packageId;
 	private String packageType;
 	private Date dateSubmitted;
@@ -52,5 +55,13 @@ public class PackageNotificationEvent {
 
 	public void setSubmitter(String submitter) {
 		this.submitter = submitter;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }
