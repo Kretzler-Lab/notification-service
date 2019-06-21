@@ -44,5 +44,5 @@ dependencies {
 }
 
 springBoot {
-    mainClassName = "org.kpmp.Application"
+    mainClassName = "org.kpmp.libra.Application"
 }
