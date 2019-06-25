@@ -20,7 +20,7 @@ public class EmailSender {
 	private String fromAddress = "kpmpNotifications@gmail.com";
 	private String host = "postfix";
 
-	public boolean sendEmail(String subject, String body, String... toAddresses) {
+	public boolean sendEmail(String subject, String body, String[] toAddresses) {
 
 		boolean successful = false;
 		Properties properties = System.getProperties();
@@ -30,7 +30,14 @@ public class EmailSender {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(fromAddress);
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddresses[0]));
+			if (toAddresses.length > 0) {
+				for (String to : toAddresses) {
+					message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+				}
+			} else {
+				log.error("No To adresses provided, unable to send message.");
+				return false;
+			}
 			message.setSubject(subject);
 			message.setText(body);
 
