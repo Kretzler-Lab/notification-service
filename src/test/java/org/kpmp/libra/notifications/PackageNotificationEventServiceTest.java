@@ -24,7 +24,7 @@ public class PackageNotificationEventServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		service = new PackageNotificationEventService(eventRepo);
+//		service = new PackageNotificationEventService(eventRepo);
 	}
 
 	@After

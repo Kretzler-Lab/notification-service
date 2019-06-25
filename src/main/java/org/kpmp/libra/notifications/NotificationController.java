@@ -24,16 +24,16 @@ public class NotificationController {
 	}
 
 	@RequestMapping(value = "/v1/notifications/package/{packageId}/packageType/{packageType}/packageSubmitted/{datePackageSubmitted}/submitter/{submitter}", method = RequestMethod.POST)
-	public @ResponseBody PackageNotificationEvent notifyNewPackage(@PathVariable String packageId,
-			@PathVariable String packageType,
+	public @ResponseBody Boolean notifyNewPackage(@PathVariable String packageId, @PathVariable String packageType,
 			@PathVariable("datePackageSubmitted") @DateTimeFormat(pattern = "yyyyMMdd") Date datePackageSubmitted,
 			@PathVariable String submitter) {
 		log.info("URI: {} | MSG: {}", "/v1/notifications", "Adding notification for PKGID: " + packageId);
 
 		PackageNotificationEvent event = packageEventService.saveNotifyEvent(packageId, packageType,
 				datePackageSubmitted, submitter);
+		boolean emailSent = packageEventService.sendNotifyEmail(event);
 
-		return event;
+		return emailSent;
 	}
 
 }

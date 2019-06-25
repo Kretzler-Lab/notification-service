@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 public class PackageNotificationEventService {
 
 	private PackageNotificationEventRepository eventRepo;
+	private EmailSender emailer;
 
 	@Autowired
-	public PackageNotificationEventService(PackageNotificationEventRepository eventRepo) {
+	public PackageNotificationEventService(PackageNotificationEventRepository eventRepo, EmailSender emailer) {
 		this.eventRepo = eventRepo;
+		this.emailer = emailer;
 	}
 
 	public PackageNotificationEvent saveNotifyEvent(String packageId, String packageType, Date datePackageSubmitted,
@@ -23,6 +25,10 @@ public class PackageNotificationEventService {
 		event = eventRepo.save(event);
 
 		return event;
+	}
+
+	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent) {
+		return emailer.sendEmail(packageEvent);
 	}
 
 }
