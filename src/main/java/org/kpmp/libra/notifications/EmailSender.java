@@ -11,6 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,8 @@ public class EmailSender {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private String fromAddress = "kpmpNotifications@gmail.com";
-	private String host = "postfix";
+	@Value("${mail.host}")
+	private String host;
 
 	public boolean sendEmail(String subject, String body, String[] toAddresses) {
 
