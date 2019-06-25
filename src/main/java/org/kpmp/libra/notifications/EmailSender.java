@@ -17,11 +17,10 @@ import org.springframework.stereotype.Component;
 public class EmailSender {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	private String toAddresses = "rlreamy@umich.edu";
 	private String fromAddress = "kpmpNotifications@gmail.com";
 	private String host = "postfix";
 
-	public boolean sendEmail(PackageNotificationEvent event) {
+	public boolean sendEmail(String subject, String body, String... toAddresses) {
 
 		boolean successful = false;
 		Properties properties = System.getProperties();
@@ -31,9 +30,9 @@ public class EmailSender {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(fromAddress);
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddresses));
-			message.setSubject("Hey, wha's up?");
-			message.setText("This is the text of the message");
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddresses[0]));
+			message.setSubject(subject);
+			message.setText(body);
 
 			Transport.send(message);
 			successful = true;

@@ -1,5 +1,12 @@
 package org.kpmp.libra.notifications;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,16 +32,18 @@ public class NotificationControllerTest {
 
 	@Test
 	public void testNotifyNewPackage() {
-//		Date datePackageSubmitted = new Date();
-//		PackageNotificationEvent expectedEvent = mock(PackageNotificationEvent.class);
-//		when(packageEventService.saveNotifyEvent("packageId", "packageType", datePackageSubmitted, "submitterName"))
-//				.thenReturn(expectedEvent);
-//
-//		PackageNotificationEvent newPackage = controller.notifyNewPackage("packageId", "packageType",
-//				datePackageSubmitted, "submitterName");
-//
-//		verify(packageEventService).saveNotifyEvent("packageId", "packageType", datePackageSubmitted, "submitterName");
-//		assertEquals(expectedEvent, newPackage);
+		Date datePackageSubmitted = new Date();
+		PackageNotificationEvent expectedEvent = mock(PackageNotificationEvent.class);
+		when(packageEventService.saveNotifyEvent("packageId", "packageType", datePackageSubmitted, "submitterName"))
+				.thenReturn(expectedEvent);
+		when(packageEventService.sendNotifyEmail(expectedEvent)).thenReturn(true);
+
+		Boolean success = controller.notifyNewPackage("packageId", "packageType", datePackageSubmitted,
+				"submitterName");
+
+		verify(packageEventService).saveNotifyEvent("packageId", "packageType", datePackageSubmitted, "submitterName");
+		verify(packageEventService).sendNotifyEmail(expectedEvent);
+		assertEquals(true, success);
 	}
 
 }

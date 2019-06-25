@@ -19,12 +19,14 @@ public class PackageNotificationEventServiceTest {
 
 	@Mock
 	private PackageNotificationEventRepository eventRepo;
+	@Mock
+	private EmailSender emailer;
 	private PackageNotificationEventService service;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-//		service = new PackageNotificationEventService(eventRepo);
+		service = new PackageNotificationEventService(eventRepo, emailer);
 	}
 
 	@After
@@ -48,6 +50,11 @@ public class PackageNotificationEventServiceTest {
 		assertEquals(datePackageSubmitted, eventCaptor.getValue().getDatePackageSubmitted());
 		assertEquals("submitterName", eventCaptor.getValue().getSubmitter());
 		assertEquals(expectedEventResult, savedEvent);
+	}
+
+	@Test
+	public void testSendNotifyEmail() throws Exception {
+
 	}
 
 }
