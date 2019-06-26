@@ -1,5 +1,7 @@
 package org.kpmp.libra.notifications;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,13 @@ public class NotificationController {
 	}
 
 	@RequestMapping(value = "/v1/notifications/package", method = RequestMethod.POST)
-	public @ResponseBody Boolean notifyNewPackage(@RequestBody PackageNotificationEvent event) {
-		log.info("URI: {} | MSG: {}", "/v1/notifications", "Adding notification for PKGID: " + event.getPackageId());
+	public @ResponseBody Boolean notifyNewPackage(@RequestBody PackageNotificationEvent event,
+			HttpServletRequest request) {
+		log.info("URI: {} | MSG: {}", request.getRequestURI(),
+				"Adding notification for PKGID: " + event.getPackageId());
 
 		event = packageEventService.saveNotifyEvent(event);
-		boolean emailSent = packageEventService.sendNotifyEmail(event);
+		boolean emailSent = packageEventService.sendNotifyEmail(event, request.getServerName());
 
 		return emailSent;
 	}

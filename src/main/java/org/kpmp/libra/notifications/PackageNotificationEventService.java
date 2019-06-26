@@ -27,7 +27,7 @@ public class PackageNotificationEventService {
 		return event;
 	}
 
-	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent) {
+	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent, String requestServer) {
 
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -41,10 +41,10 @@ public class PackageNotificationEventService {
 		body.append("SPECIMEN ID: " + packageEvent.getSpecimenId() + "\n\n");
 		body.append("DATE SUBMITTED: " + formatter.format(packageEvent.getDatePackageSubmitted()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageEvent.getSubmitter() + "\n\n");
-		body.append("Link to data lake uploader: http://upload.kpmp.org\n");
+		body.append("Link to data lake uploader: http://" + requestServer + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
-		return emailer.sendEmail("New package for your review", body.toString(), toAddresses);
+		return emailer.sendEmail("New package for your review from " + requestServer, body.toString(), toAddresses);
 	}
 
 }

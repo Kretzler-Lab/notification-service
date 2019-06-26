@@ -6,6 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,12 +36,14 @@ public class NotificationControllerTest {
 		PackageNotificationEvent initialEvent = new PackageNotificationEvent();
 		PackageNotificationEvent expectedEvent = mock(PackageNotificationEvent.class);
 		when(packageEventService.saveNotifyEvent(any(PackageNotificationEvent.class))).thenReturn(expectedEvent);
-		when(packageEventService.sendNotifyEmail(expectedEvent)).thenReturn(true);
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getServerName()).thenReturn("test.kpmp.org");
+		when(packageEventService.sendNotifyEmail(expectedEvent, "test.kpmp.org")).thenReturn(true);
 
-		Boolean success = controller.notifyNewPackage(initialEvent);
+		Boolean success = controller.notifyNewPackage(initialEvent, request);
 
 		verify(packageEventService).saveNotifyEvent(initialEvent);
-		verify(packageEventService).sendNotifyEmail(expectedEvent);
+		verify(packageEventService).sendNotifyEmail(expectedEvent, "test.kpmp.org");
 		assertEquals(true, success);
 	}
 
