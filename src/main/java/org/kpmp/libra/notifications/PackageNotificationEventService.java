@@ -2,8 +2,10 @@ package org.kpmp.libra.notifications;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +13,8 @@ public class PackageNotificationEventService {
 
 	private PackageNotificationEventRepository eventRepo;
 	private EmailSender emailer;
-	private String[] toAddresses = { "rlreamy@umich.edu" };
+	@Value("#{'${notifications.mail.to}'.split(',')}")
+	private List<String> toAddresses;
 
 	@Autowired
 	public PackageNotificationEventService(PackageNotificationEventRepository eventRepo, EmailSender emailer) {
@@ -42,7 +45,7 @@ public class PackageNotificationEventService {
 		body.append("package type: " + packageEvent.getPackageType() + "\n");
 		body.append("date submitted: " + formatter.format(packageEvent.getDatePackageSubmitted()) + "\n");
 		body.append("submitted by: " + packageEvent.getSubmitter() + "\n");
-		body.append("Link to data lake uploader: http://uploader.kpmp.org\n");
+		body.append("Link to data lake uploader: http://upload.kpmp.org\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		return emailer.sendEmail("New package for your review", body.toString(), toAddresses);

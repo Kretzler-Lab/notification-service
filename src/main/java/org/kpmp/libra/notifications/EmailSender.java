@@ -1,5 +1,6 @@
 package org.kpmp.libra.notifications;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -22,7 +23,7 @@ public class EmailSender {
 	@Value("${mail.host}")
 	private String host;
 
-	public boolean sendEmail(String subject, String body, String[] toAddresses) {
+	public boolean sendEmail(String subject, String body, List<String> toAddresses) {
 
 		boolean successful = false;
 		Properties properties = System.getProperties();
@@ -32,7 +33,7 @@ public class EmailSender {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(fromAddress);
-			if (toAddresses.length > 0) {
+			if (toAddresses.size() > 0) {
 				for (String to : toAddresses) {
 					message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 				}
