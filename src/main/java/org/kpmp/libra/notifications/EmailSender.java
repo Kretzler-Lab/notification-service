@@ -19,7 +19,8 @@ import org.springframework.stereotype.Component;
 public class EmailSender {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	private String fromAddress = "kpmpNotifications@gmail.com";
+	@Value("${notifications.mail.from}")
+	private String fromAddress;
 	@Value("${mail.host}")
 	private String host;
 
