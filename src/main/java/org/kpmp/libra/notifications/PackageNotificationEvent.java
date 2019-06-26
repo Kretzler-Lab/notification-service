@@ -15,17 +15,7 @@ public class PackageNotificationEvent {
 	private Date datePackageSubmitted;
 	private String submitter;
 	private Date dateEventSubmitted;
-
-	public PackageNotificationEvent(String packageId, String packageType, Date datePackageSubmitted, String submitter) {
-		this.packageId = packageId;
-		this.packageType = packageType;
-		this.datePackageSubmitted = datePackageSubmitted;
-		this.submitter = submitter;
-		this.dateEventSubmitted = new Date();
-	}
-
-	public PackageNotificationEvent() {
-	}
+	private String specimenId;
 
 	public String getPackageId() {
 		return packageId;
@@ -73,5 +63,13 @@ public class PackageNotificationEvent {
 
 	public void setDateEventSubmitted(Date dateEventSubmitted) {
 		this.dateEventSubmitted = dateEventSubmitted;
+	}
+
+	public String getSpecimenId() {
+		return specimenId;
+	}
+
+	public void setSpecimenId(String specimenId) {
+		this.specimenId = specimenId;
 	}
 }

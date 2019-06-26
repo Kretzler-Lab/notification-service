@@ -42,11 +42,16 @@ public class PackageNotificationEventServiceTest {
 	@Test
 	public void testSaveNotifyEvent() {
 		Date datePackageSubmitted = new Date();
+		PackageNotificationEvent event = new PackageNotificationEvent();
+		event.setPackageId("packageId");
+		event.setPackageType("packageType");
+		event.setDatePackageSubmitted(datePackageSubmitted);
+		event.setSubmitter("submitterName");
+		event.setSpecimenId("specimenId");
 		PackageNotificationEvent expectedEventResult = mock(PackageNotificationEvent.class);
 		when(eventRepo.save(any(PackageNotificationEvent.class))).thenReturn(expectedEventResult);
 
-		PackageNotificationEvent savedEvent = service.saveNotifyEvent("packageId", "packageType", datePackageSubmitted,
-				"submitterName");
+		PackageNotificationEvent savedEvent = service.saveNotifyEvent(event);
 
 		ArgumentCaptor<PackageNotificationEvent> eventCaptor = ArgumentCaptor.forClass(PackageNotificationEvent.class);
 		verify(eventRepo).save(eventCaptor.capture());
@@ -54,6 +59,7 @@ public class PackageNotificationEventServiceTest {
 		assertEquals("packageType", eventCaptor.getValue().getPackageType());
 		assertEquals(datePackageSubmitted, eventCaptor.getValue().getDatePackageSubmitted());
 		assertEquals("submitterName", eventCaptor.getValue().getSubmitter());
+		assertEquals("specimenId", eventCaptor.getValue().getSpecimenId());
 		assertEquals(expectedEventResult, savedEvent);
 	}
 
@@ -66,6 +72,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setPackageId("packageId");
 		packageEvent.setPackageType("package type");
 		packageEvent.setSubmitter("submitter name");
+		packageEvent.setSpecimenId("specimenId");
 		when(emailer.sendEmail(any(String.class), any(String.class), any(List.class))).thenReturn(true);
 
 		boolean result = service.sendNotifyEmail(packageEvent);
@@ -80,10 +87,11 @@ public class PackageNotificationEventServiceTest {
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 		String date = formatter.format(dateSubmitted);
 		assertEquals("Hey ho curator!\n" + "\n"
-				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n"
-				+ "packageId: packageId\n" + "package type: package type\n" + "date submitted: " + date + "\n"
-				+ "submitted by: submitter name\n" + "Link to data lake uploader: http://upload.kpmp.org\n" + "\n"
-				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
+				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n"
+				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n" + "SPECIMEN ID: specimenId\n\n"
+				+ "DATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
+				+ "Link to data lake uploader: http://upload.kpmp.org\n" + "\n" + "\n" + "Thanks!\n"
+				+ "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
 		assertEquals("rlreamy@umich.edu", toAddresses.get(0));
