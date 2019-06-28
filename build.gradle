@@ -39,6 +39,7 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("com.sun.mail:javax.mail:1.6.2")
 	testCompile("org.mockito:mockito-core")
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
