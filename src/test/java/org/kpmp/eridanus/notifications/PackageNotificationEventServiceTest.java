@@ -77,7 +77,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setPackageType("package type");
 		packageEvent.setSubmitter("submitter name");
 		packageEvent.setSpecimenId("specimenId");
-		packageEvent.setOrigin("upload.kpmp.org");
+		packageEvent.setOrigin("http://upload.kpmp.org");
 		when(emailer.sendEmail(any(String.class), any(String.class), any(List.class))).thenReturn(true);
 
 		boolean result = service.sendNotifyEmail(packageEvent);
@@ -87,7 +87,7 @@ public class PackageNotificationEventServiceTest {
 		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<List> toAddressesCaptor = ArgumentCaptor.forClass(List.class);
 		verify(emailer).sendEmail(subjectCaptor.capture(), bodyCaptor.capture(), toAddressesCaptor.capture());
-		assertEquals("New package for your review from upload.kpmp.org", subjectCaptor.getValue());
+		assertEquals("New package for your review from http://upload.kpmp.org", subjectCaptor.getValue());
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 		String date = formatter.format(dateSubmitted);
