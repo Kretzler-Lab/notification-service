@@ -19,8 +19,8 @@ eclipse {
 
 
 jar {
-    baseName='libra-data'
-    version= '2.3'
+    baseName='eridanus-data'
+    version= '1.0'
 }
 
 repositories {
@@ -45,5 +45,5 @@ dependencies {
 }
 
 springBoot {
-    mainClassName = "org.kpmp.libra.Application"
+    mainClassName = "org.kpmp.eridanus.Application"
 }
