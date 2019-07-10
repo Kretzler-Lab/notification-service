@@ -41,7 +41,7 @@ public class PackageNotificationEventService {
 		body.append("SPECIMEN ID: " + packageEvent.getSpecimenId() + "\n\n");
 		body.append("DATE SUBMITTED: " + formatter.format(packageEvent.getDatePackageSubmitted()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageEvent.getSubmitter() + "\n\n");
-		body.append("Link to data lake uploader: " + packageEvent.getOrigin() + "\n");
+		body.append("Link to data lake uploader: http://" + packageEvent.getOrigin() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		return emailer.sendEmail("New package for your review from " + packageEvent.getOrigin(), body.toString(), toAddresses);
