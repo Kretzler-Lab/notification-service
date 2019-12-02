@@ -2,7 +2,6 @@ package org.kpmp.eridanus.notifications;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -14,10 +13,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.eridanus.notifications.EmailSender;
-import org.kpmp.eridanus.notifications.PackageNotificationEvent;
-import org.kpmp.eridanus.notifications.PackageNotificationEventRepository;
-import org.kpmp.eridanus.notifications.PackageNotificationEventService;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -26,45 +21,19 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class PackageNotificationEventServiceTest {
 
 	@Mock
-	private PackageNotificationEventRepository eventRepo;
-	@Mock
 	private EmailSender emailer;
 	private PackageNotificationEventService service;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		service = new PackageNotificationEventService(eventRepo, emailer);
+		service = new PackageNotificationEventService(emailer);
 		ReflectionTestUtils.setField(service, "toAddresses", Arrays.asList("rlreamy@umich.edu"));
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		service = null;
-	}
-
-	@Test
-	public void testSaveNotifyEvent() {
-		Date datePackageSubmitted = new Date();
-		PackageNotificationEvent event = new PackageNotificationEvent();
-		event.setPackageId("packageId");
-		event.setPackageType("packageType");
-		event.setDatePackageSubmitted(datePackageSubmitted);
-		event.setSubmitter("submitterName");
-		event.setSpecimenId("specimenId");
-		PackageNotificationEvent expectedEventResult = mock(PackageNotificationEvent.class);
-		when(eventRepo.save(any(PackageNotificationEvent.class))).thenReturn(expectedEventResult);
-
-		PackageNotificationEvent savedEvent = service.saveNotifyEvent(event);
-
-		ArgumentCaptor<PackageNotificationEvent> eventCaptor = ArgumentCaptor.forClass(PackageNotificationEvent.class);
-		verify(eventRepo).save(eventCaptor.capture());
-		assertEquals("packageId", eventCaptor.getValue().getPackageId());
-		assertEquals("packageType", eventCaptor.getValue().getPackageType());
-		assertEquals(datePackageSubmitted, eventCaptor.getValue().getDatePackageSubmitted());
-		assertEquals("submitterName", eventCaptor.getValue().getSubmitter());
-		assertEquals("specimenId", eventCaptor.getValue().getSpecimenId());
-		assertEquals(expectedEventResult, savedEvent);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

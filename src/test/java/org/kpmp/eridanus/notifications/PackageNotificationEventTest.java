@@ -1,13 +1,12 @@
 package org.kpmp.eridanus.notifications;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.eridanus.notifications.PackageNotificationEvent;
 
 public class PackageNotificationEventTest {
 
@@ -50,12 +49,6 @@ public class PackageNotificationEventTest {
 	}
 
 	@Test
-	public void testSetId() throws Exception {
-		event.setId("id");
-		assertEquals("id", event.getId());
-	}
-
-	@Test
 	public void testSetDateEventSubmitted() throws Exception {
 		Date dateSubmitted = new Date();
 		event.setDateEventSubmitted(dateSubmitted);
@@ -75,5 +68,11 @@ public class PackageNotificationEventTest {
 		event.setOrigin("origin");
 		assertEquals("origin", event.getOrigin());
 	}
-	
+
+	@Test
+	public void testSetPackageState() throws Exception {
+		event.setPackageState("packageState");
+		assertEquals("packageState", event.getPackageState());
+	}
+
 }

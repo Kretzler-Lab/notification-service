@@ -10,21 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class PackageNotificationEventService {
 
-	private PackageNotificationEventRepository eventRepo;
 	private EmailSender emailer;
 	@Value("#{'${notifications.mail.to}'.split(',')}")
 	private List<String> toAddresses;
 
 	@Autowired
-	public PackageNotificationEventService(PackageNotificationEventRepository eventRepo, EmailSender emailer) {
-		this.eventRepo = eventRepo;
+	public PackageNotificationEventService(EmailSender emailer) {
 		this.emailer = emailer;
-	}
-
-	public PackageNotificationEvent saveNotifyEvent(PackageNotificationEvent event) {
-		event = eventRepo.save(event);
-
-		return event;
 	}
 
 	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent) {
@@ -44,7 +36,8 @@ public class PackageNotificationEventService {
 		body.append("Link to data lake uploader: http://" + packageEvent.getOrigin() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
-		return emailer.sendEmail("New package for your review from " + packageEvent.getOrigin(), body.toString(), toAddresses);
+		return emailer.sendEmail("New package for your review from " + packageEvent.getOrigin(), body.toString(),
+				toAddresses);
 	}
 
 }

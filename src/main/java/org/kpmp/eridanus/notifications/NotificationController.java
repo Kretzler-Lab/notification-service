@@ -25,11 +25,10 @@ public class NotificationController {
 	@RequestMapping(value = "/v1/notifications/package", method = RequestMethod.POST)
 	public @ResponseBody Boolean notifyNewPackage(@RequestBody PackageNotificationEvent event,
 			HttpServletRequest request) {
-		
+
 		log.info("URI: {} | MSG: {}", request.getRequestURI(),
 				"Adding notification for PKGID: " + event.getPackageId());
 
-		event = packageEventService.saveNotifyEvent(event);
 		boolean emailSent = packageEventService.sendNotifyEmail(event);
 
 		return emailSent;

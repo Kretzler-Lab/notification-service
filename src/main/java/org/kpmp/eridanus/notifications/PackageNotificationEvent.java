@@ -2,14 +2,8 @@ package org.kpmp.eridanus.notifications;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "pacakageNotificationEvents")
 public class PackageNotificationEvent {
 
-	@Id
-	private String id;
 	private String packageId;
 	private String packageType;
 	private Date datePackageSubmitted;
@@ -17,6 +11,7 @@ public class PackageNotificationEvent {
 	private Date dateEventSubmitted;
 	private String specimenId;
 	private String origin;
+	private String packageState;
 
 	public String getPackageId() {
 		return packageId;
@@ -50,14 +45,6 @@ public class PackageNotificationEvent {
 		this.submitter = submitter;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public Date getDateEventSubmitted() {
 		return dateEventSubmitted;
 	}
@@ -80,5 +67,13 @@ public class PackageNotificationEvent {
 
 	public void setOrigin(String origin) {
 		this.origin = origin;
+	}
+
+	public String getPackageState() {
+		return packageState;
+	}
+
+	public void setPackageState(String packageState) {
+		this.packageState = packageState;
 	}
 }
