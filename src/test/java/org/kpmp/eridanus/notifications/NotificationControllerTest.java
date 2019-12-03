@@ -32,12 +32,12 @@ public class NotificationControllerTest {
 
 	@Test
 	public void testNotifyNewPackage() {
-		PackageNotificationEvent initialEvent = new PackageNotificationEvent();
+		StateChangeEvent initialEvent = new StateChangeEvent();
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getServerName()).thenReturn("test.kpmp.org");
 		when(packageEventService.sendNotifyEmail(initialEvent)).thenReturn(true);
 
-		Boolean success = controller.notifyNewPackage(initialEvent, request);
+		Boolean success = controller.notify(initialEvent, request);
 
 		verify(packageEventService).sendNotifyEmail(initialEvent);
 		assertEquals(true, success);
