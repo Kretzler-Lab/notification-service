@@ -27,7 +27,7 @@ public class NotificationController {
 			HttpServletRequest request) {
 
 		log.info("URI: {} | MSG: {}", request.getRequestURI(),
-				"Adding notification for PKGID: " + event.getPackageId());
+				"Sending notification for PKGID: " + event.getPackageId());
 
 		boolean emailSent = packageEventService.sendNotifyEmail(event);
 

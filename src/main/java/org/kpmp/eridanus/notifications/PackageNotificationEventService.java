@@ -13,6 +13,10 @@ public class PackageNotificationEventService {
 	private EmailSender emailer;
 	@Value("#{'${notifications.mail.to}'.split(',')}")
 	private List<String> toAddresses;
+	@Value("${package.state.upload.succeeded}")
+	private String uploadSuccess;
+	@Value("${package.state.upload.failed}")
+	private String uploadFail;
 
 	@Autowired
 	public PackageNotificationEventService(EmailSender emailer) {
@@ -20,7 +24,16 @@ public class PackageNotificationEventService {
 	}
 
 	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent) {
+		String packageState = packageEvent.getPackageState();
+		if (packageState.equalsIgnoreCase(uploadSuccess)) {
+			return sendSuccessEmail(packageEvent);
+		} else if (packageState.equalsIgnoreCase(uploadFail)) {
+			return sendFailureEmail(packageEvent);
+		}
+		return false;
+	}
 
+	private boolean sendSuccessEmail(PackageNotificationEvent packageEvent) {
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 
@@ -37,6 +50,25 @@ public class PackageNotificationEventService {
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		return emailer.sendEmail("New package for your review from " + packageEvent.getOrigin(), body.toString(),
+				toAddresses);
+	}
+
+	private boolean sendFailureEmail(PackageNotificationEvent packageEvent) {
+		String dateFormat = "yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+
+		StringBuffer body = new StringBuffer();
+		body.append("Hey ho curator!\n\n");
+		body.append("A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n");
+		body.append("PACKAGE ID: " + packageEvent.getPackageId() + "\n\n");
+		body.append("PACKAGE TYPE: " + packageEvent.getPackageType() + "\n\n");
+		body.append("SPECIMEN ID: " + packageEvent.getSpecimenId() + "\n\n");
+		body.append("DATE SUBMITTED: " + formatter.format(packageEvent.getDatePackageSubmitted()) + "\n\n");
+		body.append("SUBMITTED BY: " + packageEvent.getSubmitter() + "\n\n");
+		body.append("Link to data lake uploader: http://" + packageEvent.getOrigin() + "\n");
+		body.append("\n\nThanks!\nYour friendly notification service.");
+
+		return emailer.sendEmail("FAILED package for your review from " + packageEvent.getOrigin(), body.toString(),
 				toAddresses);
 	}
 
