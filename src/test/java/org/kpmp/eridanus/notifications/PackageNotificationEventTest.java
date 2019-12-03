@@ -69,10 +69,4 @@ public class PackageNotificationEventTest {
 		assertEquals("origin", event.getOrigin());
 	}
 
-	@Test
-	public void testSetPackageState() throws Exception {
-		event.setPackageState("packageState");
-		assertEquals("packageState", event.getPackageState());
-	}
-
 }

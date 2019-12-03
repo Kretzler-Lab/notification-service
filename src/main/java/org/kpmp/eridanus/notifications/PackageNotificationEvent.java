@@ -11,7 +11,6 @@ public class PackageNotificationEvent {
 	private Date dateEventSubmitted;
 	private String specimenId;
 	private String origin;
-	private String packageState;
 
 	public String getPackageId() {
 		return packageId;
@@ -69,11 +68,4 @@ public class PackageNotificationEvent {
 		this.origin = origin;
 	}
 
-	public String getPackageState() {
-		return packageState;
-	}
-
-	public void setPackageState(String packageState) {
-		this.packageState = packageState;
-	}
 }
