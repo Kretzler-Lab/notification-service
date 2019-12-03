@@ -3,6 +3,8 @@ package org.kpmp.eridanus.notifications;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PackageNotificationEventService {
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private EmailSender emailer;
 	@Value("#{'${notifications.mail.to}'.split(',')}")
 	private List<String> toAddresses;
@@ -23,17 +26,23 @@ public class PackageNotificationEventService {
 		this.emailer = emailer;
 	}
 
-	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent) {
-		String packageState = packageEvent.getPackageState();
-		if (packageState.equalsIgnoreCase(uploadSuccess)) {
-			return sendSuccessEmail(packageEvent);
-		} else if (packageState.equalsIgnoreCase(uploadFail)) {
-			return sendFailureEmail(packageEvent);
-		}
+	public boolean sendNotifyEmail(StateChangeEvent event) {
+		// 1. get the package from mongo
+		// 2. call the appropriate method to send the email
+
+//		String packageState = event.getState();
+//		if (packageState.equalsIgnoreCase(uploadSuccess)) {
+//			return sendSuccessEmail();
+//		} else if (packageState.equalsIgnoreCase(uploadFail)) {
+//			return sendFailureEmail();
+//		}
+//		log.info("URI: PackageNotificationEventService.sendNotifyEmail | PKGID: {} | MSG: {}", event.getPackageId(),
+//				"No notifications defined for this state: " + packageState);
 		return false;
 	}
 
-	private boolean sendSuccessEmail(PackageNotificationEvent packageEvent) {
+	@Deprecated
+	public boolean sendNotifyEmail(PackageNotificationEvent packageEvent) {
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 

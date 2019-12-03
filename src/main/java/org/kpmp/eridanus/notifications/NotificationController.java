@@ -22,9 +22,21 @@ public class NotificationController {
 		this.packageEventService = packageEventService;
 	}
 
+	@Deprecated
 	@RequestMapping(value = "/v1/notifications/package", method = RequestMethod.POST)
 	public @ResponseBody Boolean notifyNewPackage(@RequestBody PackageNotificationEvent event,
 			HttpServletRequest request) {
+
+		log.info("URI: {} | MSG: {}", request.getRequestURI(),
+				"Sending notification for PKGID: " + event.getPackageId());
+
+		boolean emailSent = packageEventService.sendNotifyEmail(event);
+
+		return emailSent;
+	}
+
+	@RequestMapping(value = "/v2/notifications/package/", method = RequestMethod.POST)
+	public @ResponseBody Boolean notify(@RequestBody StateChangeEvent event, HttpServletRequest request) {
 
 		log.info("URI: {} | MSG: {}", request.getRequestURI(),
 				"Sending notification for PKGID: " + event.getPackageId());
