@@ -69,6 +69,7 @@ public class PackageNotificationEventService {
 		StringBuffer body = new StringBuffer();
 		body.append("Hey ho curator!\n\n");
 		body.append("A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n");
+		body.append("FAILURE REASON: " + event.getCodicil() + "\n\n");
 		body.append("PACKAGE ID: " + packageInfo.getPackageId() + "\n\n");
 		body.append("PACKAGE TYPE: " + packageInfo.getPackageType() + "\n\n");
 		body.append("SPECIMEN ID: " + packageInfo.getSubjectId() + "\n\n");

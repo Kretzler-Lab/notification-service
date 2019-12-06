@@ -5,6 +5,7 @@ class StateChangeEvent {
 	private String state;
 	private String packageId;
 	private String origin;
+	private String codicil;
 
 	public String getState() {
 		return state;
@@ -28,6 +29,14 @@ class StateChangeEvent {
 
 	public void setOrigin(String origin) {
 		this.origin = origin;
+	}
+
+	public String getCodicil() {
+		return codicil;
+	}
+
+	public void setCodicil(String codicil) {
+		this.codicil = codicil;
 	}
 
 }

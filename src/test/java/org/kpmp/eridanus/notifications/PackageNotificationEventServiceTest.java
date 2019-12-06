@@ -90,6 +90,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setOrigin("upload.kpmp.org");
 		packageEvent.setState("fail");
 		packageEvent.setPackageId("packageId");
+		packageEvent.setCodicil("could not do it");
 
 		Package packageInfo = new Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
@@ -117,10 +118,10 @@ public class PackageNotificationEventServiceTest {
 		String date = formatter.format(dateSubmitted);
 		assertEquals("Hey ho curator!\n" + "\n"
 				+ "A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n"
-				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n" + "SPECIMEN ID: specimenId\n\n"
-				+ "DATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
-				+ "Link to data lake uploader: http://upload.kpmp.org\n" + "\n" + "\n" + "Thanks!\n"
-				+ "Your friendly notification service.", bodyCaptor.getValue());
+				+ "FAILURE REASON: could not do it\n\n" + "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
+				+ "SPECIMEN ID: specimenId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
+				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.kpmp.org\n" + "\n"
+				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
 		assertEquals("rlreamy@umich.edu", toAddresses.get(0));

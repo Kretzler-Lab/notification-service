@@ -37,4 +37,10 @@ public class StateChangeEventTest extends StateChangeEvent {
 		event.setOrigin("origin");
 		assertEquals("origin", event.getOrigin());
 	}
+
+	@Test
+	public void testSetCodicil() throws Exception {
+		event.setCodicil("codicil");
+		assertEquals("codicil", event.getCodicil());
+	}
 }
