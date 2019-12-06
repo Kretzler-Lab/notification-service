@@ -22,7 +22,7 @@ public class NotificationController {
 		this.packageEventService = packageEventService;
 	}
 
-	@RequestMapping(value = "/v2/notifications/package/", method = RequestMethod.POST)
+	@RequestMapping(value = "/v2/notifications/package", method = RequestMethod.POST)
 	public @ResponseBody Boolean notify(@RequestBody StateChangeEvent event, HttpServletRequest request) {
 
 		log.info("URI: {} | MSG: {}", request.getRequestURI(),
