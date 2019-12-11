@@ -34,8 +34,8 @@ public class StateChangeEventTest extends StateChangeEvent {
 
 	@Test
 	public void testSetOrigin() throws Exception {
-		event.setOrigin("origin");
-		assertEquals("origin", event.getOrigin());
+		event.setOrigin("origin-dev_upload_com");
+		assertEquals("origin-dev.upload.com", event.getOrigin());
 	}
 
 	@Test

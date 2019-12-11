@@ -28,7 +28,7 @@ class StateChangeEvent {
 	}
 
 	public void setOrigin(String origin) {
-		this.origin = origin;
+		this.origin = origin.replaceAll("_", ".");
 	}
 
 	public String getCodicil() {
