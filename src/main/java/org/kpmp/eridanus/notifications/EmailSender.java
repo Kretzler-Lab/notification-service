@@ -37,7 +37,6 @@ public class EmailSender {
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			}
 		} else {
-			log.error("No To adresses provided, unable to send message.");
 			throw new MessagingException("No To address provided. Unable to send message.");
 		}
 		message.setSubject(subject);
