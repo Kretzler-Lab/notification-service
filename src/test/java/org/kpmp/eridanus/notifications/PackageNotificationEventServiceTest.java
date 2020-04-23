@@ -84,7 +84,7 @@ public class PackageNotificationEventServiceTest {
 		assertEquals("rlreamy@umich.edu", toAddresses.get(0));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testSendNotifyEmail_successStateWhenException() throws Exception {
 		StateChangeEvent packageEvent = new StateChangeEvent();
@@ -156,7 +156,7 @@ public class PackageNotificationEventServiceTest {
 		assertEquals("rlreamy@umich.edu", toAddresses.get(0));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	@Test
 	public void testSendNotifyEmail_failStateWhenException() throws Exception {
 		StateChangeEvent packageEvent = new StateChangeEvent();
