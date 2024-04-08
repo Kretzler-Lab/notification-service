@@ -27,7 +27,7 @@ eclipse {
 
 
 jar {
-    baseName='eridanus-data'
+    baseName='notification-service'
     version= '1.3'
 }
 
