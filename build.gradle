@@ -11,8 +11,8 @@ plugins {
     id 'com.palantir.docker' version '0.22.1'
 }
 
-group = 'kingstonduo'
-version = "latest"
+group = 'kretzlerdevs'
+version = "1.0"
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
