@@ -10,6 +10,7 @@ public class User {
 	private String id;
 	private String firstName;
 	private String lastName;
+    private String displayName;
 
 	public String getId() {
 		return id;
@@ -34,4 +35,12 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+    public String getDisplayName(){
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName){
+        this.displayName = displayName;
+    }
 }

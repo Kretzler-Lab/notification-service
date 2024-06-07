@@ -18,12 +18,14 @@ public class NotificationControllerTest {
 
 	@Mock
 	private PackageNotificationEventService packageEventService;
+    @Mock
+    private UserNotificationEventService userNotificationEventService;
 	private NotificationController controller;
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		controller = new NotificationController(packageEventService);
+		MockitoAnnotations.openMocks(this);
+		controller = new NotificationController(packageEventService, userNotificationEventService);
 	}
 
 	@After

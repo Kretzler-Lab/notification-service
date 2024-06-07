@@ -31,7 +31,7 @@ public class PackageNotificationEventServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		service = new PackageNotificationEventService(emailer, packageRepository);
 		ReflectionTestUtils.setField(service, "toAddresses", Arrays.asList("rlreamy@umich.edu"));
 		ReflectionTestUtils.setField(service, "uploadSuccess", "success");
@@ -40,6 +40,7 @@ public class PackageNotificationEventServiceTest {
 
 	@After
 	public void tearDown() throws Exception {
+        MockitoAnnotations.openMocks(this).close();
 		service = null;
 	}
 
