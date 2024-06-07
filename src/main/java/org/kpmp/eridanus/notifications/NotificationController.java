@@ -42,7 +42,7 @@ public class NotificationController {
 	}
 
     @RequestMapping(value = "/v2/notifications/user", method = RequestMethod.POST)
-	public @ResponseBody Boolean notify(@RequestBody String origin, @RequestBody User user, HttpServletRequest request) {
+	public @ResponseBody Boolean notify(@RequestBody User user, @RequestBody String origin, HttpServletRequest request) {
 
 		log.info("URI: {} | MSG: {}", request.getRequestURI(),
 				"Sending notification for User: " + user.getDisplayName());
