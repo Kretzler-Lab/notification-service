@@ -39,7 +39,7 @@ public class UserNotificationEventServiceTest {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testSendFailureEmail() throws Exception {
-        NotificationEvent event = new NotificationEvent("id`", "origin");
+        NotificationEvent event = new NotificationEvent("id1", "origin");
         service.sendFailureEmail(event);
 
         ArgumentCaptor<String> subjectCaptor = ArgumentCaptor.forClass(String.class);
@@ -47,7 +47,7 @@ public class UserNotificationEventServiceTest {
 		ArgumentCaptor<List> toAddressesCaptor = ArgumentCaptor.forClass(List.class);
 		verify(emailer).sendEmail(subjectCaptor.capture(), bodyCaptor.capture(), toAddressesCaptor.capture());
 
-        assertEquals("FAILED Login Attempt for your review from upload.miktmc.org", subjectCaptor.getValue());
+        assertEquals("FAILED Login Attempt for your review from origin", subjectCaptor.getValue());
         assertEquals("Hey ho curator!\n\n"
             + "An unauthorized user has tried to login. You might want to take a look. Here's some info about them:\n\n"
             + "USER: id1\n\n"
