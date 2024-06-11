@@ -10,15 +10,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmailSender {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 	@Value("${notifications.mail.from}")
 	private String fromAddress;
 	@Value("${mail.host}")
