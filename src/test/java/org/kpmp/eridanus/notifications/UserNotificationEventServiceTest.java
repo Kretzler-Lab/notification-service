@@ -19,6 +19,8 @@ public class UserNotificationEventServiceTest {
     @Mock
     private EmailSender emailer;
     private UserNotificationEventService service;
+    @Mock
+    private User user;
     
 
     @Before
@@ -37,13 +39,8 @@ public class UserNotificationEventServiceTest {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testSendFailureEmail() throws Exception {
-        User user = new User();
-        user.setDisplayName("firstName lastName");
-        user.setFirstName("firstName");
-        user.setLastName("lastName");
-        user.setId("id");
 
-        service.sendFailureEmail(user, "upload.miktmc.org");
+        service.sendFailureEmail("id1", "upload.miktmc.org");
 
         ArgumentCaptor<String> subjectCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);
@@ -53,7 +50,7 @@ public class UserNotificationEventServiceTest {
         assertEquals("FAILED Login Attempt for your review from upload.miktmc.org", subjectCaptor.getValue());
         assertEquals("Hey ho curator!\n\n"
             + "An unauthorized user has tried to login. You might want to take a look. Here's some info about them:\n\n"
-            + "USER: firstName lastName\n\n"
+            + "USER: id1\n\n"
             + "DATE OF ATTEMPTED LOGIN: " + java.time.LocalDate.now() 
             + "\n\nThanks!\nYour friendly notification service", bodyCaptor.getValue());
         

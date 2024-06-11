@@ -42,13 +42,13 @@ public class NotificationController {
 	}
 
     @RequestMapping(value = "/v2/notifications/user", method = RequestMethod.POST)
-	public @ResponseBody Boolean notify(@RequestBody User user, @RequestBody String origin, HttpServletRequest request) {
+	public @ResponseBody Boolean sendFailureEmail(@RequestBody String userId, @RequestBody String origin, HttpServletRequest request) {
 
 		log.info("URI: {} | MSG: {}", request.getRequestURI(),
-				"Sending notification for User: " + user.getDisplayName());
+				"Sending notification for User: " + userId);
 
 		try {
-			userNotificationEventService.sendFailureEmail(user, origin);
+			userNotificationEventService.sendFailureEmail(userId, origin);
 		} catch (MessagingException e) {
 			log.error(e.getMessage());
 			return false;
