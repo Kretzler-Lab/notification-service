@@ -39,8 +39,8 @@ public class UserNotificationEventServiceTest {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testSendFailureEmail() throws Exception {
-
-        service.sendFailureEmail("id1", "upload.miktmc.org");
+        NotificationEvent event = new NotificationEvent("id`", "origin");
+        service.sendFailureEmail(event);
 
         ArgumentCaptor<String> subjectCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);

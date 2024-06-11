@@ -18,15 +18,15 @@ public class UserNotificationEventService {
         this.emailSender = emailer;
     }
 
-    public void sendFailureEmail(String userId, String origin) throws MessagingException {
+    public void sendFailureEmail(NotificationEvent event) throws MessagingException {
 
         StringBuffer body = new StringBuffer();
         body.append("Hey ho curator!\n\n");
         body.append("An unauthorized user has tried to login. You might want to take a look. Here's some info about them:\n\n");
-        body.append("USER: " + userId + "\n\n");
+        body.append("USER: " + event.getUserId() + "\n\n");
         body.append("DATE OF ATTEMPTED LOGIN: " + java.time.LocalDate.now());
         body.append("\n\nThanks!\nYour friendly notification service");
 
-        emailSender.sendEmail("FAILED Login Attempt for your review from " + origin, body.toString(), toAddresses);
+        emailSender.sendEmail("FAILED Login Attempt for your review from " + event.getOrigin(), body.toString(), toAddresses);
     }
 }
