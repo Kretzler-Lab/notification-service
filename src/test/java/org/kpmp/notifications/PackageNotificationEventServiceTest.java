@@ -52,7 +52,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setState("success");
 		packageEvent.setPackageId("packageId");
 
-		java.lang.Package packageInfo = new java.lang.Package();
+		Package packageInfo = new Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
@@ -93,7 +93,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setState("success");
 		packageEvent.setPackageId("packageId");
 
-		java.lang.Package packageInfo = new java.lang.Package();
+		Package packageInfo = new Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
@@ -124,7 +124,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setPackageId("packageId");
 		packageEvent.setCodicil("could not do it");
 
-		java.lang.Package packageInfo = new java.lang.Package();
+		Package packageInfo = new Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
@@ -166,7 +166,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setPackageId("packageId");
 		packageEvent.setCodicil("could not do it");
 
-		java.lang.Package packageInfo = new java.lang.Package();
+		Package packageInfo = new Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);

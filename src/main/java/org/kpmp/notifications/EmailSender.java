@@ -43,11 +43,6 @@ public class EmailSender {
 				.build(loader);
 	}
 
-	public String wrappedSend(MimeMessage message) throws MessagingException, IOException {
-		Transport.send(message);
-		return message.getContent().toString();
-	}
-
 	public void sendEmail(String subject, String body, List<String> toAddresses) throws MessagingException, IOException {
 
 		Properties properties = System.getProperties();
