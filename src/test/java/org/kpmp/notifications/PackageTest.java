@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,11 +10,11 @@ import org.junit.Test;
 
 public class PackageTest {
 
-	private Package pkg;
+	private java.lang.Package pkg;
 
 	@Before
 	public void setUp() throws Exception {
-		pkg = new Package();
+		pkg = new java.lang.Package();
 	}
 
 	@After

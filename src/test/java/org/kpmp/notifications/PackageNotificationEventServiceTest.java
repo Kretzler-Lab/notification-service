@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,7 +52,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setState("success");
 		packageEvent.setPackageId("packageId");
 
-		Package packageInfo = new Package();
+		java.lang.Package packageInfo = new java.lang.Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
@@ -93,7 +93,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setState("success");
 		packageEvent.setPackageId("packageId");
 
-		Package packageInfo = new Package();
+		java.lang.Package packageInfo = new java.lang.Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
@@ -124,7 +124,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setPackageId("packageId");
 		packageEvent.setCodicil("could not do it");
 
-		Package packageInfo = new Package();
+		java.lang.Package packageInfo = new java.lang.Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
@@ -166,7 +166,7 @@ public class PackageNotificationEventServiceTest {
 		packageEvent.setPackageId("packageId");
 		packageEvent.setCodicil("could not do it");
 
-		Package packageInfo = new Package();
+		java.lang.Package packageInfo = new java.lang.Package();
 		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
 		Date dateSubmitted = new Date();
 		packageInfo.setCreatedAt(dateSubmitted);
