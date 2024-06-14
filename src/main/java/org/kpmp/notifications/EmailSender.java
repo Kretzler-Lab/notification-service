@@ -32,7 +32,8 @@ public class EmailSender {
 		CacheLoader<NotificationMessage, String> loader = new CacheLoader<NotificationMessage, String>() {
 			@Override
 			public String load(NotificationMessage notification) throws Exception {
-				return wrappedSend(notification.getMessage());
+				Transport.send(notification.getMessage());
+				return notification.getBody();
 			}
 
 		};
