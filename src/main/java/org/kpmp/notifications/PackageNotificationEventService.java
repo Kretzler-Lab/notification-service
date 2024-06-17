@@ -1,5 +1,6 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PackageNotificationEventService {
 		this.packageRepository = packageRepository;
 	}
 
-	public void sendNotifyEmail(StateChangeEvent event) throws MessagingException {
+	public void sendNotifyEmail(StateChangeEvent event) throws MessagingException, IOException {
 		Package packageInfo = packageRepository.findByPackageId(event.getPackageId());
 
 		String packageState = event.getState();
@@ -43,7 +44,7 @@ public class PackageNotificationEventService {
 				"No notifications defined for this state: " + packageState);
 	}
 
-	private void sendSuccessEmail(Package packageInfo, StateChangeEvent event) throws MessagingException {
+	private void sendSuccessEmail(Package packageInfo, StateChangeEvent event) throws MessagingException, IOException {
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 
@@ -63,7 +64,7 @@ public class PackageNotificationEventService {
 		emailer.sendEmail("New package for your review from " + event.getOrigin(), body.toString(), toAddresses);
 	}
 
-	private void sendFailureEmail(Package packageInfo, StateChangeEvent event) throws MessagingException {
+	private void sendFailureEmail(Package packageInfo, StateChangeEvent event) throws MessagingException, IOException {
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 

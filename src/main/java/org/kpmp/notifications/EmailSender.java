@@ -1,7 +1,9 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,6 +12,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +26,24 @@ public class EmailSender {
 	@Value("${mail.host}")
 	private String host;
 
-	public void sendEmail(String subject, String body, List<String> toAddresses) throws MessagingException {
+	private LoadingCache<NotificationMessage, String> cache;
+
+	public EmailSender() {
+		CacheLoader<NotificationMessage, String> loader = new CacheLoader<NotificationMessage, String>() {
+			@Override
+			public String load(NotificationMessage notification) throws Exception {
+				Transport.send(notification.getMessage());
+				return notification.getBody();
+			}
+
+		};
+
+		cache = CacheBuilder.newBuilder()
+				.expireAfterAccess(20, TimeUnit.MINUTES)
+				.build(loader);
+	}
+
+	public void sendEmail(String subject, String body, List<String> toAddresses) throws MessagingException, IOException {
 
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", host);
@@ -39,7 +61,7 @@ public class EmailSender {
 		message.setSubject(subject);
 		message.setText(body);
 
-		Transport.send(message);
-
+		NotificationMessage notificationMessage = new NotificationMessage(message);
+		cache.getUnchecked(notificationMessage);
 	}
 }

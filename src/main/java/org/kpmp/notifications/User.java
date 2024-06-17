@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

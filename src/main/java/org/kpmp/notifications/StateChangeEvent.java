@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 class StateChangeEvent {
 

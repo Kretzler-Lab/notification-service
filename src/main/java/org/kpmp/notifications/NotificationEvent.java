@@ -1,4 +1,6 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
+
+import java.util.Objects;
 
 public class NotificationEvent {
     private String origin;
@@ -26,5 +28,17 @@ public class NotificationEvent {
         this.userId = userId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NotificationEvent that = (NotificationEvent) o;
+        return Objects.equals(origin, that.origin) && Objects.equals(userId, that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(origin, userId);
+    }
 
 }

@@ -47,13 +47,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.sun.mail:javax.mail:1.6.2")
-	testImplementation("org.mockito:mockito-core")
+    implementation 'com.google.guava:guava:33.2.1-jre'
+    testImplementation("org.mockito:mockito-core")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation 'junit:junit:4.12'
 }
 
 springBoot {
-    mainClass = "org.kpmp.eridanus.Application"
+    mainClass = "org.kpmp.Application"
 }
 
 task unpack(type: Copy) {

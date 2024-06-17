@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

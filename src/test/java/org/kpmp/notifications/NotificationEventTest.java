@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

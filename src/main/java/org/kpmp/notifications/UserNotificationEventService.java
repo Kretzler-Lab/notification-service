@@ -1,4 +1,5 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
+import java.io.IOException;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -18,7 +19,7 @@ public class UserNotificationEventService {
         this.emailSender = emailer;
     }
 
-    public void sendFailureEmail(NotificationEvent event) throws MessagingException {
+    public void sendFailureEmail(NotificationEvent event) throws MessagingException, IOException {
 
         StringBuffer body = new StringBuffer();
         body.append("Hey ho curator!\n\n");

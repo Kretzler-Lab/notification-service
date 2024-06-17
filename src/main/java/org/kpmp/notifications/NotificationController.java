@@ -1,4 +1,4 @@
-package org.kpmp.eridanus.notifications;
+package org.kpmp.notifications;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
 
 @Controller
 public class NotificationController {
@@ -33,7 +35,7 @@ public class NotificationController {
 
 		try {
 			packageEventService.sendNotifyEmail(event);
-		} catch (MessagingException e) {
+		} catch (MessagingException | IOException e) {
 			log.error(e.getMessage());
 			return false;
 		}
@@ -52,6 +54,8 @@ public class NotificationController {
 		} catch (MessagingException e) {
 			log.error(e.getMessage());
 			return false;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 
 		return true;
