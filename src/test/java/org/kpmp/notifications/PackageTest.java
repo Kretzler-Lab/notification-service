@@ -10,11 +10,11 @@ import org.junit.Test;
 
 public class PackageTest {
 
-	private java.lang.Package pkg;
+	private Package pkg;
 
 	@Before
 	public void setUp() throws Exception {
-		pkg = new java.lang.Package();
+		pkg = new Package();
 	}
 
 	@After
