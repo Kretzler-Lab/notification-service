@@ -28,6 +28,6 @@ public class UserNotificationEventService {
         body.append("DATE OF ATTEMPTED LOGIN: " + java.time.LocalDate.now());
         body.append("\n\nThanks!\nYour friendly notification service");
 
-        emailSender.sendEmail("FAILED Login Attempt for your review from " + event.getOrigin(), body.toString(), toAddresses);
+        emailSender.sendEmail("FAILED Login Attempt for your review", body.toString(), toAddresses);
     }
 }
