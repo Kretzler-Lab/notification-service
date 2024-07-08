@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

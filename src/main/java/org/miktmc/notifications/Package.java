@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import java.util.Date;
 

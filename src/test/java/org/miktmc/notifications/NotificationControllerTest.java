@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doThrow;
@@ -37,7 +37,7 @@ public class NotificationControllerTest {
 	public void testNotifyNewPackage() {
 		StateChangeEvent initialEvent = new StateChangeEvent();
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getServerName()).thenReturn("test.kpmp.org");
+		when(request.getServerName()).thenReturn("test.miktmc.org");
 
 		Boolean success = controller.notify(initialEvent, request);
 
@@ -48,7 +48,7 @@ public class NotificationControllerTest {
 	public void testNotifyNewPackage_whenException() throws Exception {
 		StateChangeEvent initialEvent = new StateChangeEvent();
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getServerName()).thenReturn("test.kpmp.org");
+		when(request.getServerName()).thenReturn("test.miktmc.org");
 		doThrow(new MessagingException()).when(packageEventService).sendNotifyEmail(initialEvent);
 
 		Boolean success = controller.notify(initialEvent, request);

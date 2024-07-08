@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
