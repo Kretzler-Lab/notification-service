@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -48,7 +48,7 @@ public class PackageNotificationEventServiceTest {
 	@Test
 	public void testSendNotifyEmail_successState() throws Exception {
 		StateChangeEvent packageEvent = new StateChangeEvent();
-		packageEvent.setOrigin("upload.kpmp.org");
+		packageEvent.setOrigin("upload.miktmc.org");
 		packageEvent.setState("success");
 		packageEvent.setPackageId("packageId");
 
@@ -70,7 +70,7 @@ public class PackageNotificationEventServiceTest {
 		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<List> toAddressesCaptor = ArgumentCaptor.forClass(List.class);
 		verify(emailer).sendEmail(subjectCaptor.capture(), bodyCaptor.capture(), toAddressesCaptor.capture());
-		assertEquals("New package for your review from upload.kpmp.org", subjectCaptor.getValue());
+		assertEquals("New package for your review from upload.miktmc.org", subjectCaptor.getValue());
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 		String date = formatter.format(dateSubmitted);
@@ -78,7 +78,7 @@ public class PackageNotificationEventServiceTest {
 				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n"
 				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n" + "SPECIMEN ID: specimenId\n\n"
 				+ "DATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
-				+ "Link to data lake uploader: http://upload.kpmp.org\n" + "\n" + "\n" + "Thanks!\n"
+				+ "Link to data lake uploader: http://upload.miktmc.org\n" + "\n" + "\n" + "Thanks!\n"
 				+ "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
@@ -89,7 +89,7 @@ public class PackageNotificationEventServiceTest {
 	@Test
 	public void testSendNotifyEmail_successStateWhenException() throws Exception {
 		StateChangeEvent packageEvent = new StateChangeEvent();
-		packageEvent.setOrigin("upload.kpmp.org");
+		packageEvent.setOrigin("upload.miktmc.org");
 		packageEvent.setState("success");
 		packageEvent.setPackageId("packageId");
 
@@ -119,7 +119,7 @@ public class PackageNotificationEventServiceTest {
 	@Test
 	public void testSendNotifyEmail_failState() throws Exception {
 		StateChangeEvent packageEvent = new StateChangeEvent();
-		packageEvent.setOrigin("upload.kpmp.org");
+		packageEvent.setOrigin("upload.miktmc.org");
 		packageEvent.setState("fail");
 		packageEvent.setPackageId("packageId");
 		packageEvent.setCodicil("could not do it");
@@ -142,7 +142,7 @@ public class PackageNotificationEventServiceTest {
 		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<List> toAddressesCaptor = ArgumentCaptor.forClass(List.class);
 		verify(emailer).sendEmail(subjectCaptor.capture(), bodyCaptor.capture(), toAddressesCaptor.capture());
-		assertEquals("FAILED package for your review from upload.kpmp.org", subjectCaptor.getValue());
+		assertEquals("FAILED package for your review from upload.miktmc.org", subjectCaptor.getValue());
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 		String date = formatter.format(dateSubmitted);
@@ -150,7 +150,7 @@ public class PackageNotificationEventServiceTest {
 				+ "A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n"
 				+ "FAILURE REASON: could not do it\n\n" + "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
 				+ "SPECIMEN ID: specimenId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
-				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.kpmp.org\n" + "\n"
+				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org\n" + "\n"
 				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
@@ -161,7 +161,7 @@ public class PackageNotificationEventServiceTest {
 	@Test
 	public void testSendNotifyEmail_failStateWhenException() throws Exception {
 		StateChangeEvent packageEvent = new StateChangeEvent();
-		packageEvent.setOrigin("upload.kpmp.org");
+		packageEvent.setOrigin("upload.miktmc.org");
 		packageEvent.setState("fail");
 		packageEvent.setPackageId("packageId");
 		packageEvent.setCodicil("could not do it");
