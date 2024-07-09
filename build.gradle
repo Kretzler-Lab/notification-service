@@ -34,12 +34,6 @@ repositories {
     mavenCentral()
 }
 
-processResources {
-    filesMatching('application.properties') {
-        expand(project.properties)
-    }
-}
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
