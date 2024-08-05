@@ -58,6 +58,7 @@ public class PackageNotificationEventServiceTest {
 		packageInfo.setCreatedAt(dateSubmitted);
 		packageInfo.setPackageId("packageId");
 		packageInfo.setPackageType("package type");
+        packageInfo.setStudyId("studyId");
 		User submitter = new User();
 		submitter.setFirstName("submitter");
 		submitter.setLastName("name");
@@ -77,8 +78,8 @@ public class PackageNotificationEventServiceTest {
 		assertEquals("Hey ho curator!\n" + "\n"
 				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n"
 				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n" + "SPECIMEN ID: specimenId\n\n"
-				+ "DATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
-				+ "Link to data lake uploader: http://upload.miktmc.org\n" + "\n" + "\n" + "Thanks!\n"
+				+ "STUDY ID: studyId\n\nDATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
+				+ "Link to data lake uploader: http://upload.miktmc.org/dataLake/package_packageId\n" + "\n" + "\n" + "Thanks!\n"
 				+ "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
@@ -150,7 +151,7 @@ public class PackageNotificationEventServiceTest {
 				+ "A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n"
 				+ "FAILURE REASON: could not do it\n\n" + "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
 				+ "SPECIMEN ID: specimenId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
-				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org\n" + "\n"
+				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org/dataLake/package_packageId\n" + "\n"
 				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());

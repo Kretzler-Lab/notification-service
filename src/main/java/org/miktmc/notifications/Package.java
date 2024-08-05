@@ -14,6 +14,7 @@ public class Package {
 	private String packageType;
 	private Date createdAt;
 	private String subjectId;
+    private String studyId;
 	@DBRef(lazy = false)
 	private User submitter;
 
@@ -48,6 +49,14 @@ public class Package {
 	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
+
+    public String getStudyId() {
+        return studyId;
+    }
+
+    public void setStudyId(String studyId){
+        this.studyId = studyId;
+    }
 
 	public User getSubmitter() {
 		return submitter;
