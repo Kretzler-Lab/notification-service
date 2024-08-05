@@ -55,10 +55,11 @@ public class PackageNotificationEventService {
 		body.append("PACKAGE ID: " + packageInfo.getPackageId() + "\n\n");
 		body.append("PACKAGE TYPE: " + packageInfo.getPackageType() + "\n\n");
 		body.append("SPECIMEN ID: " + packageInfo.getSubjectId() + "\n\n");
+        body.append("STUDY ID: " + packageInfo.getStudyId() + "\n\n");
 		body.append("DATE SUBMITTED: " + formatter.format(packageInfo.getCreatedAt()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageInfo.getSubmitter().getFirstName() + " "
 				+ packageInfo.getSubmitter().getLastName() + "\n\n");
-		body.append("Link to data lake uploader: http://" + event.getOrigin() + "\n");
+		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/dataLake/package_" + packageInfo.getPackageId() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		emailer.sendEmail("New package for your review from " + event.getOrigin(), body.toString(), toAddresses);
@@ -78,7 +79,7 @@ public class PackageNotificationEventService {
 		body.append("DATE SUBMITTED: " + formatter.format(packageInfo.getCreatedAt()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageInfo.getSubmitter().getFirstName() + " "
 				+ packageInfo.getSubmitter().getLastName() + "\n\n");
-		body.append("Link to data lake uploader: http://" + event.getOrigin() + "\n");
+		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/dataLake/package_" + packageInfo.getPackageId() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		emailer.sendEmail("FAILED package for your review from " + event.getOrigin(), body.toString(), toAddresses);
