@@ -58,7 +58,7 @@ public class PackageNotificationEventService {
 		body.append("DATE SUBMITTED: " + formatter.format(packageInfo.getCreatedAt()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageInfo.getSubmitter().getFirstName() + " "
 				+ packageInfo.getSubmitter().getLastName() + "\n\n");
-		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/datalake/" + packageInfo.getStudy() + "/package_" + packageInfo.getPackageId() + "\n");
+		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/datalake/" + packageInfo.getStudyFolderName() + "/package_" + packageInfo.getPackageId() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		emailer.sendEmail("New package for your review from " + event.getOrigin(), body.toString(), toAddresses);
@@ -78,7 +78,7 @@ public class PackageNotificationEventService {
 		body.append("DATE SUBMITTED: " + formatter.format(packageInfo.getCreatedAt()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageInfo.getSubmitter().getFirstName() + " "
 				+ packageInfo.getSubmitter().getLastName() + "\n\n");
-		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/datalake/" + packageInfo.getStudy() + "/package_" + packageInfo.getPackageId() + "\n");
+		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/datalake/" + packageInfo.getStudyFolderName() + "/package_" + packageInfo.getPackageId() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		emailer.sendEmail("FAILED package for your review from " + event.getOrigin(), body.toString(), toAddresses);

@@ -1,6 +1,7 @@
 package org.miktmc.notifications;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -74,4 +75,13 @@ public class Package {
     public void setStudy(String study){
         this.study = study;
     }
+
+    
+    public String getStudyFolderName(){
+        if (Objects.equals(study, "CureGN Diabetes")){
+            study = "CureGNDiabetes";
+            return study;
+        }
+        return getStudy();
+    }    
 }
