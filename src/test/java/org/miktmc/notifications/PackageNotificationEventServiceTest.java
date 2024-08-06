@@ -79,7 +79,7 @@ public class PackageNotificationEventServiceTest {
 		String date = formatter.format(dateSubmitted);
 		assertEquals("Hey ho curator!\n" + "\n"
 				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n"
-				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n" + "SPECIMEN ID: specimenId\n\n"
+				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
 				+ "STUDY ID: studyId\n\nDATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
 				+ "Link to data lake uploader: http://upload.miktmc.org/datalake/study/package_packageId\n" + "\n" + "\n" + "Thanks!\n"
 				+ "Your friendly notification service.", bodyCaptor.getValue());
