@@ -54,12 +54,11 @@ public class PackageNotificationEventService {
 				"A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n");
 		body.append("PACKAGE ID: " + packageInfo.getPackageId() + "\n\n");
 		body.append("PACKAGE TYPE: " + packageInfo.getPackageType() + "\n\n");
-		body.append("SPECIMEN ID: " + packageInfo.getSubjectId() + "\n\n");
         body.append("STUDY ID: " + packageInfo.getStudyId() + "\n\n");
 		body.append("DATE SUBMITTED: " + formatter.format(packageInfo.getCreatedAt()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageInfo.getSubmitter().getFirstName() + " "
 				+ packageInfo.getSubmitter().getLastName() + "\n\n");
-		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/dataLake/package_" + packageInfo.getPackageId() + "\n");
+		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/datalake/" + packageInfo.getStudy() + "/package_" + packageInfo.getPackageId() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		emailer.sendEmail("New package for your review from " + event.getOrigin(), body.toString(), toAddresses);
@@ -75,11 +74,11 @@ public class PackageNotificationEventService {
 		body.append("FAILURE REASON: " + event.getCodicil() + "\n\n");
 		body.append("PACKAGE ID: " + packageInfo.getPackageId() + "\n\n");
 		body.append("PACKAGE TYPE: " + packageInfo.getPackageType() + "\n\n");
-		body.append("SPECIMEN ID: " + packageInfo.getSubjectId() + "\n\n");
+		body.append("STUDY ID: " + packageInfo.getStudyId() + "\n\n");
 		body.append("DATE SUBMITTED: " + formatter.format(packageInfo.getCreatedAt()) + "\n\n");
 		body.append("SUBMITTED BY: " + packageInfo.getSubmitter().getFirstName() + " "
 				+ packageInfo.getSubmitter().getLastName() + "\n\n");
-		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/dataLake/package_" + packageInfo.getPackageId() + "\n");
+		body.append("Link to data lake uploader: http://" + event.getOrigin() + "/datalake/" + packageInfo.getStudy() + "/package_" + packageInfo.getPackageId() + "\n");
 		body.append("\n\nThanks!\nYour friendly notification service.");
 
 		emailer.sendEmail("FAILED package for your review from " + event.getOrigin(), body.toString(), toAddresses);

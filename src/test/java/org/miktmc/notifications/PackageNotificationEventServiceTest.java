@@ -64,6 +64,8 @@ public class PackageNotificationEventServiceTest {
 		submitter.setLastName("name");
 		packageInfo.setSubmitter(submitter);
 		packageInfo.setSubjectId("specimenId");
+        packageInfo.setStudy("study");
+        packageInfo.setStudyId("studyId");
 
 		service.sendNotifyEmail(packageEvent);
 
@@ -77,9 +79,9 @@ public class PackageNotificationEventServiceTest {
 		String date = formatter.format(dateSubmitted);
 		assertEquals("Hey ho curator!\n" + "\n"
 				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n"
-				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n" + "SPECIMEN ID: specimenId\n\n"
+				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
 				+ "STUDY ID: studyId\n\nDATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
-				+ "Link to data lake uploader: http://upload.miktmc.org/dataLake/package_packageId\n" + "\n" + "\n" + "Thanks!\n"
+				+ "Link to data lake uploader: http://upload.miktmc.org/datalake/study/package_packageId\n" + "\n" + "\n" + "Thanks!\n"
 				+ "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
@@ -105,6 +107,7 @@ public class PackageNotificationEventServiceTest {
 		submitter.setLastName("name");
 		packageInfo.setSubmitter(submitter);
 		packageInfo.setSubjectId("specimenId");
+        packageInfo.setStudy("study");
 		doThrow(new MessagingException("BOOM")).when(emailer).sendEmail(any(String.class), any(String.class),
 				any(List.class));
 
@@ -135,7 +138,8 @@ public class PackageNotificationEventServiceTest {
 		submitter.setFirstName("submitter");
 		submitter.setLastName("name");
 		packageInfo.setSubmitter(submitter);
-		packageInfo.setSubjectId("specimenId");
+		packageInfo.setStudyId("studyId");
+        packageInfo.setStudy("study");
 
 		service.sendNotifyEmail(packageEvent);
 
@@ -150,8 +154,8 @@ public class PackageNotificationEventServiceTest {
 		assertEquals("Hey ho curator!\n" + "\n"
 				+ "A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n"
 				+ "FAILURE REASON: could not do it\n\n" + "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
-				+ "SPECIMEN ID: specimenId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
-				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org/dataLake/package_packageId\n" + "\n"
+				+ "STUDY ID: studyId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
+				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org/datalake/study/package_packageId\n" + "\n"
 				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
@@ -178,6 +182,8 @@ public class PackageNotificationEventServiceTest {
 		submitter.setLastName("name");
 		packageInfo.setSubmitter(submitter);
 		packageInfo.setSubjectId("specimenId");
+        packageInfo.setStudy("study");
+        packageInfo.setStudyId("studyid");
 		doThrow(new MessagingException("BOOM")).when(emailer).sendEmail(any(String.class), any(String.class),
 				any(List.class));
 
