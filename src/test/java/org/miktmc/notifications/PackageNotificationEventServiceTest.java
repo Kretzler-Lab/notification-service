@@ -88,6 +88,49 @@ public class PackageNotificationEventServiceTest {
 		assertEquals("rlreamy@umich.edu", toAddresses.get(0));
 	}
 
+    @Test
+	public void testSendNotifyEmail_successStateCureGNDiabetes() throws Exception {
+		StateChangeEvent packageEvent = new StateChangeEvent();
+		packageEvent.setOrigin("upload.miktmc.org");
+		packageEvent.setState("success");
+		packageEvent.setPackageId("packageId");
+
+		Package packageInfo = new Package();
+		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
+		Date dateSubmitted = new Date();
+		packageInfo.setCreatedAt(dateSubmitted);
+		packageInfo.setPackageId("packageId");
+		packageInfo.setPackageType("package type");
+        packageInfo.setStudyId("studyId");
+		User submitter = new User();
+		submitter.setFirstName("submitter");
+		submitter.setLastName("name");
+		packageInfo.setSubmitter(submitter);
+		packageInfo.setSubjectId("specimenId");
+        packageInfo.setStudy("CureGN Diabetes");
+        packageInfo.setStudyId("studyId");
+
+		service.sendNotifyEmail(packageEvent);
+
+		ArgumentCaptor<String> subjectCaptor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<List> toAddressesCaptor = ArgumentCaptor.forClass(List.class);
+		verify(emailer).sendEmail(subjectCaptor.capture(), bodyCaptor.capture(), toAddressesCaptor.capture());
+		assertEquals("New package for your review from upload.miktmc.org", subjectCaptor.getValue());
+		String dateFormat = "yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+		String date = formatter.format(dateSubmitted);
+		assertEquals("Hey ho curator!\n" + "\n"
+				+ "A new package has been uploaded to the data lake.  You might wanna take a look. Here's some info about it:\n\n"
+				+ "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
+				+ "STUDY ID: studyId\n\nDATE SUBMITTED: " + date + "\n\n" + "SUBMITTED BY: submitter name\n\n"
+				+ "Link to data lake uploader: http://upload.miktmc.org/datalake/CureGNDiabetes/package_packageId\n" + "\n" + "\n" + "Thanks!\n"
+				+ "Your friendly notification service.", bodyCaptor.getValue());
+		List<String> toAddresses = toAddressesCaptor.getValue();
+		assertEquals(1, toAddresses.size());
+		assertEquals("rlreamy@umich.edu", toAddresses.get(0));
+	}
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSendNotifyEmail_successStateWhenException() throws Exception {
@@ -156,6 +199,49 @@ public class PackageNotificationEventServiceTest {
 				+ "FAILURE REASON: could not do it\n\n" + "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
 				+ "STUDY ID: studyId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
 				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org/datalake/study/package_packageId\n" + "\n"
+				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
+		List<String> toAddresses = toAddressesCaptor.getValue();
+		assertEquals(1, toAddresses.size());
+		assertEquals("rlreamy@umich.edu", toAddresses.get(0));
+	}
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test
+	public void testSendNotifyEmail_failStateCureGNDiabetes() throws Exception {
+		StateChangeEvent packageEvent = new StateChangeEvent();
+		packageEvent.setOrigin("upload.miktmc.org");
+		packageEvent.setState("fail");
+		packageEvent.setPackageId("packageId");
+		packageEvent.setCodicil("could not do it");
+
+		Package packageInfo = new Package();
+		when(packageRepository.findByPackageId("packageId")).thenReturn(packageInfo);
+		Date dateSubmitted = new Date();
+		packageInfo.setCreatedAt(dateSubmitted);
+		packageInfo.setPackageId("packageId");
+		packageInfo.setPackageType("package type");
+		User submitter = new User();
+		submitter.setFirstName("submitter");
+		submitter.setLastName("name");
+		packageInfo.setSubmitter(submitter);
+		packageInfo.setStudyId("studyId");
+        packageInfo.setStudy("CureGN Diabetes");
+
+		service.sendNotifyEmail(packageEvent);
+
+		ArgumentCaptor<String> subjectCaptor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<String> bodyCaptor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<List> toAddressesCaptor = ArgumentCaptor.forClass(List.class);
+		verify(emailer).sendEmail(subjectCaptor.capture(), bodyCaptor.capture(), toAddressesCaptor.capture());
+		assertEquals("FAILED package for your review from upload.miktmc.org", subjectCaptor.getValue());
+		String dateFormat = "yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+		String date = formatter.format(dateSubmitted);
+		assertEquals("Hey ho curator!\n" + "\n"
+				+ "A new package has failed uploading.  You might wanna take a look. Here's some info about it:\n\n"
+				+ "FAILURE REASON: could not do it\n\n" + "PACKAGE ID: packageId\n\n" + "PACKAGE TYPE: package type\n\n"
+				+ "STUDY ID: studyId\n\n" + "DATE SUBMITTED: " + date + "\n\n"
+				+ "SUBMITTED BY: submitter name\n\n" + "Link to data lake uploader: http://upload.miktmc.org/datalake/CureGNDiabetes/package_packageId\n" + "\n"
 				+ "\n" + "Thanks!\n" + "Your friendly notification service.", bodyCaptor.getValue());
 		List<String> toAddresses = toAddressesCaptor.getValue();
 		assertEquals(1, toAddresses.size());
