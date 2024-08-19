@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import static org.junit.Assert.assertEquals;
 

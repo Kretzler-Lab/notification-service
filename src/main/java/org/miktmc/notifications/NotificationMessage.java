@@ -1,4 +1,4 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

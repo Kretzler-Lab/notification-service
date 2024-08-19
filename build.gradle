@@ -27,17 +27,11 @@ eclipse {
 
 jar {
     baseName='notification-service'
-    version= '1.0.1'
+    version= '1.1'
 }
 
 repositories {
     mavenCentral()
-}
-
-processResources {
-    filesMatching('application.properties') {
-        expand(project.properties)
-    }
 }
 
 sourceCompatibility = 1.8
@@ -54,7 +48,7 @@ dependencies {
 }
 
 springBoot {
-    mainClass = "org.kpmp.Application"
+    mainClass = "org.miktmc.Application"
 }
 
 task unpack(type: Copy) {

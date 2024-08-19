@@ -1,6 +1,7 @@
-package org.kpmp.notifications;
+package org.miktmc.notifications;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,6 +15,8 @@ public class Package {
 	private String packageType;
 	private Date createdAt;
 	private String subjectId;
+    private String studyId;
+    private String study;
 	@DBRef(lazy = false)
 	private User submitter;
 
@@ -49,6 +52,14 @@ public class Package {
 		this.subjectId = subjectId;
 	}
 
+    public String getStudyId() {
+        return studyId;
+    }
+
+    public void setStudyId(String studyId){
+        this.studyId = studyId;
+    }
+
 	public User getSubmitter() {
 		return submitter;
 	}
@@ -57,4 +68,20 @@ public class Package {
 		this.submitter = submitter;
 	}
 
+    public String getStudy(){
+        return study;
+    }
+
+    public void setStudy(String study){
+        this.study = study;
+    }
+
+    
+    public String getStudyFolderName(){
+        if (Objects.equals(study, "CureGN Diabetes")){
+            study = "CureGNDiabetes";
+            return study;
+        }
+        return getStudy();
+    }    
 }
