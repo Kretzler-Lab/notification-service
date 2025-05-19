@@ -53,7 +53,14 @@ public class EmailSender {
 		message.setFrom(fromAddress);
 		if (toAddresses.size() > 0) {
 			for (String to : toAddresses) {
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                if (body.contains("CureGN") && to.contains("curegn")) {
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                }else if (body.contains("Neptune") && to.contains("neptune")) {
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                }
+                else{
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                }
 			}
 		} else {
 			throw new MessagingException("No To address provided. Unable to send message.");
