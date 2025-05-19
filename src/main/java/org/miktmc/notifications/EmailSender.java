@@ -53,12 +53,11 @@ public class EmailSender {
 		message.setFrom(fromAddress);
 		if (toAddresses.size() > 0) {
 			for (String to : toAddresses) {
-                if (body.contains("CureGN") && to.contains("curegn")) {
+                if (body.toLowerCase().contains("curegn") && to.toLowerCase().contains("curegn")) {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                }else if (body.contains("Neptune") && to.contains("neptune")) {
+                } else if (body.toLowerCase().contains("neptune") && to.toLowerCase().contains("neptune")) {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                }
-                else{
+                } else {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                 }
 			}
