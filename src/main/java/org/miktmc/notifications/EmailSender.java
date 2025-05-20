@@ -52,12 +52,14 @@ public class EmailSender {
 		MimeMessage message = new MimeMessage(session);
 		message.setFrom(fromAddress);
 		if (toAddresses.size() > 0) {
+            String bodyLower = body.toLowerCase();
 			for (String to : toAddresses) {
-                if (body.toLowerCase().contains("curegn") && to.toLowerCase().contains("curegn")) {
+                String toLower = to.toLowerCase();
+                if ((bodyLower.contains("curegn") && toLower.contains("curegn")) ||
+                    (bodyLower.contains("neptune") && toLower.contains("neptune"))) {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                } else if (body.toLowerCase().contains("neptune") && to.toLowerCase().contains("neptune")) {
-                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                } else {
+                }
+                else if(toLower.contains("miktmc-devs")) {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                 }
 			}
