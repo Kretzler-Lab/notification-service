@@ -53,19 +53,21 @@ public class EmailSender {
 		message.setFrom(fromAddress);
 		if (toAddresses.size() > 0) {
             String bodyLower = body.toLowerCase();
-			for (String to : toAddresses) {
+            boolean recipientAdded = false;
+            for (String to : toAddresses) {
                 String toLower = to.toLowerCase();
                 if ((bodyLower.contains("curegn") && toLower.contains("curegn")) ||
                     (bodyLower.contains("neptune") && toLower.contains("neptune"))) {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                    recipientAdded = true;
                 }
-                else if(toLower.contains("miktmc-devs")) {
-                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                }
-			}
-		} else {
-			throw new MessagingException("No To address provided. Unable to send message.");
-		}
+            }
+            if (!recipientAdded) {
+                throw new MessagingException("No matching recipient for study found. Unable to send message.");
+            }
+        } else {
+            throw new MessagingException("No To address provided. Unable to send message.");
+        }
 		message.setSubject(subject);
 		message.setText(body);
 
