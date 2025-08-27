@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Release 1.1
+## Release 1.2
 
 * Route users based on study name. 
 
