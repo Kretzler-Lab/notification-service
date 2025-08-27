@@ -52,12 +52,22 @@ public class EmailSender {
 		MimeMessage message = new MimeMessage(session);
 		message.setFrom(fromAddress);
 		if (toAddresses.size() > 0) {
-			for (String to : toAddresses) {
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			}
-		} else {
-			throw new MessagingException("No To address provided. Unable to send message.");
-		}
+            String bodyLower = body.toLowerCase();
+            boolean recipientAdded = false;
+            for (String to : toAddresses) {
+                String toLower = to.toLowerCase();
+                if ((bodyLower.contains("curegn") && toLower.contains("curegn")) ||
+                    (bodyLower.contains("neptune") && toLower.contains("neptune"))) {
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                    recipientAdded = true;
+                }
+            }
+            if (!recipientAdded) {
+                throw new MessagingException("No matching recipient for study found. Unable to send message.");
+            }
+        } else {
+            throw new MessagingException("No To address provided. Unable to send message.");
+        }
 		message.setSubject(subject);
 		message.setText(body);
 
