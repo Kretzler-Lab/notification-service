@@ -54,19 +54,10 @@ public class EmailSender {
 		if (toAddresses.size() > 0) {
             String bodyLower = body.toLowerCase();
             boolean recipientAdded = false;
-            if (bodyLower.contains("unauthorized")) {
-                for (String to : toAddresses) {
+            for ( String to : toAddresses) {
+                if (bodyLower.contains("curegn") || bodyLower.contains("neptune") || bodyLower.contains("unauthorized")) {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                     recipientAdded = true;
-                }
-            } else {
-                for (String to : toAddresses) {
-                    String toLower = to.toLowerCase();
-                    if ((bodyLower.contains("curegn") && toLower.contains("curegn")) ||
-                        (bodyLower.contains("neptune") && toLower.contains("neptune"))) {
-                        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                        recipientAdded = true;
-                    }
                 }
             }
             if (!recipientAdded) {
