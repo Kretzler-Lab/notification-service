@@ -39,9 +39,10 @@ public class PackageNotificationEventService {
 			sendSuccessEmail(packageInfo, event);
 		} else if (packageState.equalsIgnoreCase(uploadFail)) {
 			sendFailureEmail(packageInfo, event);
-		}
-		log.info("URI: PackageNotificationEventService.sendNotifyEmail | PKGID: {} | MSG: {}", event.getPackageId(),
-				"No notifications defined for this state: " + packageState);
+		}else {
+            log.info("URI: PackageNotificationEventService.sendNotifyEmail | PKGID: {} | MSG: {}", event.getPackageId(),
+            "No notifications defined for this state: " + packageState);
+        }
 	}
 
 	private void sendSuccessEmail(Package packageInfo, StateChangeEvent event) throws MessagingException, IOException {
